@@ -39,13 +39,26 @@ If you complete all of the required use cases and are looking for additional cha
    5. A Request Transfer has an initial status of *Pending*.
    6. No account balance changes until the request is approved.
    7. The transfer request should appear in both users' list of transfers (use case #5).
+   
 8. As an authenticated user of the system, I need to be able to see my *Pending* transfers.
+
 9. As an authenticated user of the system, I need to be able to either approve or reject a Request Transfer.
-   1. I can't "approve" a given Request Transfer for more TE Bucks than I have in my account.
-   2. The Request Transfer status is *Approved* if I approve, or *Rejected* if I reject the request.
-   3. If the transfer is approved, the requester's account balance is increased by the amount of the request.
-   4. If the transfer is approved, the requestee's account balance is decreased by the amount of the request.
-   5. If the transfer is rejected, no account balance changes.
+   
+   I can't "approve" a given Request Transfer for more TE Bucks than I have in my account.
+   
+   The Request Transfer status is *Approved* if I approve, or *Rejected* if I reject the request.
+   
+   If the transfer is approved, the requester's account balance is increased by the amount of the request.
+   
+   If the transfer is approved, the requestee's account balance is decreased by the amount of the request.
+   
+   If the transfer is rejected, no account balance changes.
+
+### Optional API Documentation via Swagger
+
+1. **[COMPLETE]** Add Swagger dependencies to the POM file and add a SpringFoxConfig class
+2. Add `@ApiOperation` and `@ApiParam` attributes to the methods in the controllers
+3. Verify the documentation by accessing `http://localhost:8080/swagger-ui.html`
 
 ## Sample screens
 
