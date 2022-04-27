@@ -1,5 +1,7 @@
 package com.techelevator.tenmo.model;
 
+import java.util.List;
+
 public class User {  // only cares about id and username, need a model so it gives back user object, know who the users are
 
     private Long id;
@@ -31,4 +33,5 @@ public class User {  // only cares about id and username, need a model so it giv
             return false;
         }
     }
-}
+
+    }

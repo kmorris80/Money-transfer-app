@@ -6,6 +6,8 @@ import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TenmoService;
 
+import java.util.Arrays;
+
 public class App {
 
     private static final String API_BASE_URL = "http://localhost:8080/";
@@ -104,7 +106,7 @@ public class App {
 	}
 
 	private void sendBucks() {
-		// TODO Auto-generated method stub
+        System.out.println((Arrays.toString(tenmoService.getAllUsersForSendingMoney())));
 		
 	}
 
