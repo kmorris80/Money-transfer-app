@@ -2,7 +2,7 @@ package com.techelevator.tenmo.model;
 
 import javax.validation.constraints.NotEmpty;
 
-public class RegisterUserDTO {
+public class RegisterUserDTO {  //create a new user in order to use the system
 
     @NotEmpty
     private String username;

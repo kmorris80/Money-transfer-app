@@ -22,10 +22,10 @@ public class TenmoService {
         this.authToken = authToken;
     }
 
-    public BigDecimal getBalance(int id){
+    public BigDecimal getBalance(){
         BigDecimal balance = null;
         try{
-            ResponseEntity< BigDecimal > response = restTemplate.exchange(API_BASE_URL + id, HttpMethod.GET, makeAuthEntity(), BigDecimal.class );
+            ResponseEntity< BigDecimal > response = restTemplate.exchange(API_BASE_URL , HttpMethod.GET, makeAuthEntity(), BigDecimal.class );
             balance = response.getBody();
         }
         catch (RestClientResponseException | ResourceAccessException e ) {

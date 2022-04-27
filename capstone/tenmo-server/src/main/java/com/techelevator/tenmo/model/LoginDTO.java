@@ -3,7 +3,7 @@ package com.techelevator.tenmo.model;
 /**
  * DTO for storing a user's credentials.
  */
-public class LoginDTO {
+public class LoginDTO {  //passes in a username and password
 
    private String username;
    private String password;

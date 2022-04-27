@@ -1,6 +1,6 @@
 package com.techelevator.tenmo.model;
 
-public class User {
+public class User {  // only cares about id and username, need a model so it gives back user object, know who the users are
 
     private Long id;
     private String username;

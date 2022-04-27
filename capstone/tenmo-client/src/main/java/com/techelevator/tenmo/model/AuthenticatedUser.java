@@ -2,8 +2,8 @@ package com.techelevator.tenmo.model;
 
 public class AuthenticatedUser {
 	
-	private String token;
-	private User user;
+	private String token; //authentication token as a string, like a ticket for access to API, short lived
+	private User user;  //user ID and password
 	
 	public String getToken() {
 		return token;

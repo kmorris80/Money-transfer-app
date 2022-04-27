@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class User {
+public class User {  //creates a new username
 
    private Long id;
    private String username;
-   private String password;
-   private boolean activated;
-   private Set<Authority> authorities = new HashSet<>();
+   private String password;  //hashed password
+   private boolean activated; //active user
+   private Set<Authority> authorities = new HashSet<>();  //list of what roles we have- only have user roll
 
    public User() { }
 

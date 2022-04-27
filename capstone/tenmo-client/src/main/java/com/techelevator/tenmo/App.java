@@ -13,7 +13,7 @@ public class App {
     private final ConsoleService consoleService = new ConsoleService();
     private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
 
-    private AuthenticatedUser currentUser;
+    private AuthenticatedUser currentUser; //when make a call to server, use this person with token
     TenmoService tenmoService = new TenmoService();
     public static void main(String[] args) {
         App app = new App();
@@ -59,6 +59,9 @@ public class App {
         if (currentUser == null) {
             consoleService.printErrorMessage();
         }
+        else{
+            tenmoService.setAuthToken(currentUser.getToken());
+        }
     }
 
     private void mainMenu() {
@@ -85,9 +88,9 @@ public class App {
         }
     }
 
-	private void viewCurrentBalance(int id) {
+	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
-        System.out.println(tenmoService.getBalance(id));
+        System.out.println(tenmoService.getBalance()); //using the principal
 	}
 
 	private void viewTransferHistory() {
