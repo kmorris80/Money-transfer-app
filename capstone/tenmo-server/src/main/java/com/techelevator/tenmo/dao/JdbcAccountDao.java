@@ -9,14 +9,14 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Component
-public class JdbcAccountDao implements AccountDao {
+public class JdbcAccountDao implements AccountDao {//all database to server
     private JdbcTemplate jdbcTemplate;
 
     public JdbcAccountDao(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
     @Override
-    public Account get(int userId) {
+    public Account getAccount(int userId) {
         String sql = "SELECT account_id, user_id, balance FROM account WHERE user_id = ?";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
         Account account = null;
