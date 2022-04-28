@@ -41,6 +41,7 @@ public class JdbcUserDao implements UserDao {
         while(results.next()) {
             User user = mapRowToUser(results);
             users.add(user);
+            System.out.println("Added" + user.getUsername());//use to see if client is touching this method
         }
         return users;
     }
@@ -50,7 +51,7 @@ public class JdbcUserDao implements UserDao {
         String sql = "SELECT user_id, username FROM tenmo_user;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while(results.next()) {
-            User user = mapRowToUser(results);
+            User user = mapRowToPartUser(results);
             users.add(user);
         }
         return users;
@@ -97,6 +98,12 @@ public class JdbcUserDao implements UserDao {
         user.setPassword(rs.getString("password_hash"));
         user.setActivated(true);
         user.setAuthorities("USER");
+        return user;
+    }
+    private User mapRowToPartUser(SqlRowSet rs) {
+        User user = new User();
+        user.setId(rs.getLong("user_id"));
+        user.setUsername(rs.getString("username"));
         return user;
     }
 }

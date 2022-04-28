@@ -33,5 +33,11 @@ public class User {  // only cares about id and username, need a model so it giv
             return false;
         }
     }
+    @Override
+    public String toString(){
+
+        return id + "    " + username; //prints out in words
+
+    }
 
     }

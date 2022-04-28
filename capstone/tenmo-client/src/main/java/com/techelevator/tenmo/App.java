@@ -1,6 +1,7 @@
 package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
@@ -106,7 +107,11 @@ public class App {
 	}
 
 	private void sendBucks() {
-        System.out.println((Arrays.toString(tenmoService.getAllUsersForSendingMoney())));
+        User[] userList = tenmoService.getAllUsersForSendingMoney();
+        for(User eachUser : userList){
+            System.out.println(eachUser); //will print out each user down on the list
+        }
+
 		
 	}
 

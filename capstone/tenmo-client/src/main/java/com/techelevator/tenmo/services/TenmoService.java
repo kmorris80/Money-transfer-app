@@ -18,7 +18,7 @@ import java.util.List;
 
 public class TenmoService {
 
-    public static final String API_BASE_URL = "http://localhost:8080/accounts/" ;
+    public static final String API_BASE_URL = "http://localhost:8080/" ;
     private final RestTemplate restTemplate = new RestTemplate();
 
     private String authToken = null;
@@ -29,7 +29,7 @@ public class TenmoService {
     public BigDecimal getBalance(){
         BigDecimal balance = null;
         try{
-            ResponseEntity< BigDecimal > response = restTemplate.exchange(API_BASE_URL , HttpMethod.GET, makeAuthEntity(), BigDecimal.class );
+            ResponseEntity< BigDecimal > response = restTemplate.exchange(API_BASE_URL + "accounts" , HttpMethod.GET, makeAuthEntity(), BigDecimal.class );
             balance = response.getBody();
         }
         catch (RestClientResponseException | ResourceAccessException e ) {
