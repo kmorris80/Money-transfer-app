@@ -68,6 +68,7 @@ public class App {
             consoleService.printErrorMessage();
         } else {
             tenmoService.setAuthToken(currentUser.getToken());
+            transferService.setAuthToken(currentUser.getToken()); // need to pass token to server
         }
     }
 
