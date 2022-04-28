@@ -1,9 +1,7 @@
 package com.techelevator.tenmo.services;
 
-import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.util.BasicLogger;
-import org.apiguardian.api.API;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -37,10 +35,14 @@ public class TenmoService {
         }
         return balance;
     }
-    public User[] getAllUsersForSendingMoney(){
-        User[] users = null;
+//    public User[] getAll(){
+//        User[] users = null;
+    public User[] getAll(){
+            User[] users = null;
         try {
-            users = restTemplate.getForObject(API_BASE_URL + "users", User[].class);
+         //   return restTemplate.exchange(API_BASE_URL + "users", HttpMethod.GET, makeAuthEntity(), List<User>.class);
+            ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "users", HttpMethod.GET, makeAuthEntity(), User[].class);
+            users = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }

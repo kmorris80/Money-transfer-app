@@ -106,7 +106,7 @@ public class App {
 	}
 
 	private void sendBucks() {
-        System.out.println((Arrays.toString(tenmoService.getAllUsersForSendingMoney())));
+        System.out.println(tenmoService.getAll());
 		
 	}
 
