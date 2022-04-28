@@ -38,9 +38,15 @@ public class AccountController {  //gets the request from client on port 8080
         //create an accounts jdbc class
         //use dependency injection to inject accountsDao
     }
+<<<<<<< HEAD
     @RequestMapping(path="users", method = RequestMethod.GET)
     public List<User> getUsersToSendMoney(){
         return userDao.findAllForSendingMoney();
+=======
+    @RequestMapping(path="/users", method = RequestMethod.GET)
+    public List<User> getAll(){
+        return userDao.findAll();
+>>>>>>> 21c1125d3a93c002b3c0b75cb27897863912bd40
     }
 
 
