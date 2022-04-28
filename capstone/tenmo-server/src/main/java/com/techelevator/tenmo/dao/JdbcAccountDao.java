@@ -42,5 +42,14 @@ public class JdbcAccountDao implements AccountDao {//all database to server
         account.setBalance(result.getBigDecimal("balance"));
     return account;
     }
+    @Override
+    public void addMoneyToAccount(BigDecimal amount, int userId){
+        String sql= "UPDATE account SET balance = balance + ? WHERE user_id = ?";
+
+
+    }
+
+    @Override
+    public void subtractMoneyFromAccount(BigDecimal amount, int userId){}
 
 }
