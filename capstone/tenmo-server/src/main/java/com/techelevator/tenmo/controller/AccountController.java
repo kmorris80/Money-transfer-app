@@ -5,6 +5,7 @@ import com.techelevator.tenmo.dao.UserDao;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,8 +43,10 @@ public class AccountController {  //gets the request from client on port 8080
     }
 
     @RequestMapping(path = "/users", method = RequestMethod.GET)
-    public List<User> getUsersToSendMoney() {
-        return userDao.findAllForSendingMoney();
+    public List<User> getUsersToSendMoney(Principal principal) {
+        int id = userDao.findIdByUsername(principal.getName());
+
+        return userDao.findAllForSendingMoney(id);
 
     }
 //

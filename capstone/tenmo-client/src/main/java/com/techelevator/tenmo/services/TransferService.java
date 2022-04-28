@@ -1,8 +1,15 @@
 package com.techelevator.tenmo.services;
 
+//import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.util.BasicLogger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
+
+import java.math.BigDecimal;
 
 public class TransferService {
 
@@ -14,6 +21,13 @@ public class TransferService {
         this.authToken = authToken;
     }
 
+        public void sendMoney(BigDecimal amount, int id){
+        try{
+            restTemplate.exchange(API_BASE_URL + "transfers?amount=" + amount + "&id=" + id, HttpMethod.POST, makeAuthEntity(), Void.class);
+        } catch (RestClientResponseException  | ResourceAccessException e) {
+            BasicLogger.log(e.getMessage());
+            }
+        }
 
 
 

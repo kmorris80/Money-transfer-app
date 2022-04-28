@@ -112,7 +112,7 @@ public class App {
     private void sendBucks() {
         User[] userList = tenmoService.getAllUsersForSendingMoney();
         for (User eachUser : userList) {
-            System.out.println(eachUser); //will print out each user down on the list
+            System.out.println(eachUser.toString()); //will print out each user down on the list
             /**
              * match id boolean
              * while true
@@ -120,28 +120,34 @@ public class App {
              *
              */}
         boolean matchId = false;
-        int id = 0;
+
         while (!matchId) {
+            int userToId = consoleService.promptForInt("Enter user id to send money to: ");
+
             for (User user : userList) {
-                if (user.getId() == consoleService.promptForInt("Enter user id to send money to: ")) {
-                    id = consoleService.promptForInt("Enter user id to send money to: ");
+                if (user.getId() == userToId) {
                     if (!user.getUsername().equals(currentUser)) {
                         matchId = true;
 
-                    } else {
-
-                        break;
                     }
                 }
             }
-            double inputAmount = consoleService.promptForDouble("Enter Dollar amount including decimal: ");
-            BigDecimal transferAmount = BigDecimal.valueOf(inputAmount);
+            if (matchId) {
+                double inputAmount = consoleService.promptForDouble("Enter Dollar amount including decimal: ");
+                BigDecimal transferAmount = BigDecimal.valueOf(inputAmount);
 
-
+            }else {
+                System.out.println("User ID is not found");
+                break;
+            }
         }
     }
 
-
+//        private void testing( int userId) {
+//            consoleService.promptForInt("whatever: ");
+//            userId = consoleService.promptForInt("whatever");
+//            if ()
+//        }
 
         private void requestBucks() {
             // TODO Auto-generated method stub

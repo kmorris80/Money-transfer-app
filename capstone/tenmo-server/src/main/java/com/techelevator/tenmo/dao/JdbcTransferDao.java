@@ -24,7 +24,7 @@ public class JdbcTransferDao implements TransferDao{
                 "JOIN transfer ON transfer_type.transfer_type_id = transfer.transfer_type_id \n" +
                 "WHERE transfer_id = ?";
 
-        return null;
+        return jdbcTemplate.queryForObject(sql , String.class , transferId);
     }
 
     @Override
@@ -39,7 +39,11 @@ public class JdbcTransferDao implements TransferDao{
 
     @Override
     public Transfer createTransfer(Transfer transfer, int senderId, int receiverId, BigDecimal amount) {
-        return null;
+        String sql = "INSERT INTO transfer(transfer_type_id, transfer_status_id, account_from, account_to, amount)\n" +
+                "VALUES (?, ?, ?, ?, ?) RETURNING transfer_id";
+
+        return jdbcTemplate.queryForObject(sql, Transfer.class, transfer.getTransferType(), transfer.getReceiverId(), transfer.getAmount(),
+                transfer.getSenderId(), transfer.getTransferId());
     }
 
     @Override
