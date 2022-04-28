@@ -16,4 +16,8 @@ public interface AccountDao {
     void addMoneyToAccount(BigDecimal amount, int userId);
 
     void subtractMoneyFromAccount(BigDecimal amount, int userId);
+
+    BigDecimal getBalance(int userId);
+
+
 }

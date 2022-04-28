@@ -6,6 +6,7 @@ import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TenmoService;
+import com.techelevator.tenmo.services.TransferService;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -17,7 +18,7 @@ public class App {
 
     private final ConsoleService consoleService = new ConsoleService();
     private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
-
+    private final TransferService transferService = new TransferService();
     private AuthenticatedUser currentUser; //when make a call to server, use this person with token
     TenmoService tenmoService = new TenmoService();
 
@@ -135,7 +136,7 @@ public class App {
             if (matchId) {
                 double inputAmount = consoleService.promptForDouble("Enter Dollar amount including decimal: ");
                 BigDecimal transferAmount = BigDecimal.valueOf(inputAmount);
-
+                transferService.sendMoney(transferAmount, userToId);
             }else {
                 System.out.println("User ID is not found");
                 break;

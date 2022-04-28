@@ -25,6 +25,12 @@ public class JdbcAccountDao implements AccountDao {//all database to server
         }
         return account;
     }
+
+    @Override
+    public void addMoneyToAccount(BigDecimal amount, int userId) {
+
+    }
+
     @Override
     public List<Account> list() {
         return null;
@@ -42,14 +48,25 @@ public class JdbcAccountDao implements AccountDao {//all database to server
         account.setBalance(result.getBigDecimal("balance"));
     return account;
     }
-    @Override
-    public void addMoneyToAccount(BigDecimal amount, int userId){
-        String sql= "UPDATE account SET balance = balance + ? WHERE user_id = ?";
+//    @Override
+//    public void addMoneyToAccount(BigDecimal amount, int userId){
+//        String sql= "UPDATE account SET balance = balance + ? WHERE user_id = ?";
+//        BigDecimal newBalance = getBalance(userId).add(amount);
+//        jdbcTemplate.update(sql, newBalance, userId);
+//
+//    }
 
+    @Override
+    public void subtractMoneyFromAccount(BigDecimal amount, int userId){
+        String sql= "UPDATE account SET balance = balance + ? WHERE user_id = ?";
+        BigDecimal newBalance = getBalance(userId).add(amount);
+        jdbcTemplate.update(sql, newBalance, userId);
 
     }
 
     @Override
-    public void subtractMoneyFromAccount(BigDecimal amount, int userId){}
+    public BigDecimal getBalance(int userId) {
+        return null;
+    }
 
 }

@@ -10,7 +10,7 @@ public interface TransferDao {
 
    String getTransferType(int transferId);
 
-   Transfer addToReceiverBalance(int userId, BigDecimal amount);
+   void addToReceiverBalance(int userId, BigDecimal amount);
 
    Transfer subtractFromSenderBalance(int userId, BigDecimal amount);
 
@@ -23,5 +23,5 @@ public interface TransferDao {
    List<Transfer> transfersList();
 
    Transfer getTransferById(int transferId);
-
+   BigDecimal getBalance(int userId);
 }

@@ -28,8 +28,10 @@ public class JdbcTransferDao implements TransferDao{
     }
 
     @Override
-    public Transfer addToReceiverBalance(int userId, BigDecimal amount) {
-        return null;
+    public void addToReceiverBalance(int userId, BigDecimal amount) {
+        String sql= "UPDATE account SET balance = balance + ? WHERE user_id = ?";
+        BigDecimal newBalance = getBalance(userId).add(amount);
+        jdbcTemplate.update(sql, newBalance, userId);
     }
 
     @Override
@@ -60,6 +62,12 @@ public class JdbcTransferDao implements TransferDao{
     public Transfer getTransferById(int transferId) {
         return null;
     }
+
+    @Override
+    public BigDecimal getBalance(int userId) {
+        return null;
+    }
+
     @Override
     public boolean notZeroOrNegative() {
         return false;
