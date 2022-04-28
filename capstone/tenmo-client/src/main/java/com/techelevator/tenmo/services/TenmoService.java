@@ -37,7 +37,7 @@ public class TenmoService {
     }
 //    public User[] getAll(){
 //        User[] users = null;
-    public User[] getAll(){
+    public User[] getAllUsersForSendingMoney(){
             User[] users = null;
         try {
          //   return restTemplate.exchange(API_BASE_URL + "users", HttpMethod.GET, makeAuthEntity(), List<User>.class);

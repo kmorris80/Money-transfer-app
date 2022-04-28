@@ -19,6 +19,11 @@ public class JdbcTransferDao implements TransferDao{
 
     @Override
     public String getTransferType(int transferId) {
+        String sql = "SELECT transfer_type_desc \n" +
+                "FROM transfer_type \n" +
+                "JOIN transfer ON transfer_type.transfer_type_id = transfer.transfer_type_id \n" +
+                "WHERE transfer_id = ?";
+
         return null;
     }
 

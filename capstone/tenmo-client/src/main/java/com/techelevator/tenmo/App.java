@@ -7,6 +7,8 @@ import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TenmoService;
 
+import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.Arrays;
 
 public class App {
@@ -106,11 +108,35 @@ public class App {
 		
 	}
 
-	private void sendBucks() {
+	private void sendBucks(Principal principal) {
+        String user1 = principal.getName();
         User[] userList = tenmoService.getAllUsersForSendingMoney();
         for(User eachUser : userList){
             System.out.println(eachUser); //will print out each user down on the list
-        }
+            /**
+             * match id boolean
+             * while true
+             * prmpty enter id the send money to
+             *
+             */}
+            boolean matchId = false;
+            int id = 0;
+            while(!matchId) {
+                for (User user : userList){
+                    if ( user.getId() == consoleService.promptForInt("Enter user id to send money to: ")){
+                        id = consoleService.promptForInt("Enter user id to send money to: ");
+//                        if (id == user1 ){
+
+                        }
+
+                        matchId = true;
+                        break;
+                    }
+                }
+            }
+           double inputAmount = consoleService.promptForDouble("Enter Dollar amount including decimal: ");
+        BigDecimal transferAmount = BigDecimal.valueOf(inputAmount);
+
 
 		
 	}

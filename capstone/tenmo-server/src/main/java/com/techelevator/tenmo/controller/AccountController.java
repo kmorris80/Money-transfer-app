@@ -24,8 +24,10 @@ public class AccountController {  //gets the request from client on port 8080
         this.userDao = userDao;
         this.accountDao = accountDao;
     }
-    @RequestMapping(path ="/accounts", method = RequestMethod.GET)//someone is requesting information, and i'm goign to run method
-    public BigDecimal getAccountBalance(Principal principal){
+
+    @RequestMapping(path = "/accounts", method = RequestMethod.GET)
+//someone is requesting information, and i'm goign to run method
+    public BigDecimal getAccountBalance(Principal principal) {
 
         String username = principal.getName(); //if logged in, we can get their name
         int userId = userDao.findIdByUsername(username); //can get their userId because principal gave us the name (principal is already coded)
@@ -38,17 +40,18 @@ public class AccountController {  //gets the request from client on port 8080
         //create an accounts jdbc class
         //use dependency injection to inject accountsDao
     }
-<<<<<<< HEAD
-    @RequestMapping(path="users", method = RequestMethod.GET)
-    public List<User> getUsersToSendMoney(){
+
+    @RequestMapping(path = "/users", method = RequestMethod.GET)
+    public List<User> getUsersToSendMoney() {
         return userDao.findAllForSendingMoney();
-=======
-    @RequestMapping(path="/users", method = RequestMethod.GET)
-    public List<User> getAll(){
-        return userDao.findAll();
->>>>>>> 21c1125d3a93c002b3c0b75cb27897863912bd40
+
     }
-
-
+//
+//    @RequestMapping(path = "/users", method = RequestMethod.GET)
+//    public List<User> getAll() {
+//        return userDao.findAll();
+//    }
 
 }
+
+
