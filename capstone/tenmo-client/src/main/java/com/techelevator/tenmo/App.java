@@ -20,6 +20,7 @@ public class App {
 
     private AuthenticatedUser currentUser; //when make a call to server, use this person with token
     TenmoService tenmoService = new TenmoService();
+
     public static void main(String[] args) {
         App app = new App();
         app.run();
@@ -32,6 +33,7 @@ public class App {
             mainMenu();
         }
     }
+
     private void loginMenu() {
         int menuSelection = -1;
         while (menuSelection != 0 && currentUser == null) {
@@ -63,8 +65,7 @@ public class App {
         currentUser = authenticationService.login(credentials);
         if (currentUser == null) {
             consoleService.printErrorMessage();
-        }
-        else{
+        } else {
             tenmoService.setAuthToken(currentUser.getToken());
         }
     }
@@ -93,25 +94,24 @@ public class App {
         }
     }
 
-	private void viewCurrentBalance() {
-		// TODO Auto-generated method stub
+    private void viewCurrentBalance() {
+        // TODO Auto-generated method stub
         System.out.println(tenmoService.getBalance()); //using the principal
-	}
+    }
 
-	private void viewTransferHistory() {
-		// TODO Auto-generated method stub
-		
-	}
+    private void viewTransferHistory() {
+        // TODO Auto-generated method stub
 
-	private void viewPendingRequests() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	private void sendBucks(Principal principal) {
-        String user1 = principal.getName();
+    private void viewPendingRequests() {
+        // TODO Auto-generated method stub
+
+    }
+
+    private void sendBucks() {
         User[] userList = tenmoService.getAllUsersForSendingMoney();
-        for(User eachUser : userList){
+        for (User eachUser : userList) {
             System.out.println(eachUser); //will print out each user down on the list
             /**
              * match id boolean
@@ -119,31 +119,34 @@ public class App {
              * prmpty enter id the send money to
              *
              */}
-            boolean matchId = false;
-            int id = 0;
-            while(!matchId) {
-                for (User user : userList){
-                    if ( user.getId() == consoleService.promptForInt("Enter user id to send money to: ")){
-                        id = consoleService.promptForInt("Enter user id to send money to: ");
-//                        if (id == user1 ){
-
-                        }
-
+        boolean matchId = false;
+        int id = 0;
+        while (!matchId) {
+            for (User user : userList) {
+                if (user.getId() == consoleService.promptForInt("Enter user id to send money to: ")) {
+                    id = consoleService.promptForInt("Enter user id to send money to: ");
+                    if (!user.getUsername().equals(currentUser)) {
                         matchId = true;
+
+                    } else {
+
                         break;
                     }
                 }
             }
-           double inputAmount = consoleService.promptForDouble("Enter Dollar amount including decimal: ");
-        BigDecimal transferAmount = BigDecimal.valueOf(inputAmount);
+            double inputAmount = consoleService.promptForDouble("Enter Dollar amount including decimal: ");
+            BigDecimal transferAmount = BigDecimal.valueOf(inputAmount);
 
 
-		
-	}
+        }
+    }
 
-	private void requestBucks() {
-		// TODO Auto-generated method stub
-		
-	}
 
-}
+
+        private void requestBucks() {
+            // TODO Auto-generated method stub
+
+        }
+
+    }
+
