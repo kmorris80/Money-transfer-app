@@ -30,19 +30,19 @@ public class TransferController {
 
 
     }
-    @RequestMapping(method = RequestMethod.PUT)
-    public void sendMoneyToReceiver(@RequestBody Transfer transfer ) {
-//    public Transfer sendMoneyToReceiver(@RequestBody Transfer transfer, @PathVariable int id ) {
 
-//         return transferDao.addToReceiverBalance( transfer, id);
+ @RequestMapping(method = RequestMethod.PUT)
+public void withdrawlFromSender(@RequestBody Transfer transfer, Principal principal){
+      int senderId =  userDao.findIdByUsername(principal.getName());
+      transfer.setSenderId(userDao.findIdByUsername(principal.getName()));
+        transferDao.createTransfer();
+
+      transferDao.subtractFromSenderBalance(senderId, transfer.getAmount() );
         transferDao.addToReceiverBalance(transfer.getReceiverId(), transfer.getAmount());
 
 
-//        accountDao.addMoneyToAccount(amount, id);
+        //transfer dao to write to transfer table
+ }
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    public Transfer gettransfersByUserName(Principal principal){
-//
-//    }
-    }
+
 }

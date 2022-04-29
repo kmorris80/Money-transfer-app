@@ -137,6 +137,7 @@ public class App {
             if (matchId) {
                 double inputAmount = consoleService.promptForDouble("Enter Dollar amount including decimal: ");
                 BigDecimal transferAmount = BigDecimal.valueOf(inputAmount);
+//                if ();
                 Transfer transfer = new Transfer();
                 transfer.setAmount(transferAmount);
                 transfer.setReceiverId(userToId);
