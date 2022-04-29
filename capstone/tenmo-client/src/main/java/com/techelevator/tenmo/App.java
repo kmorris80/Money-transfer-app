@@ -122,7 +122,6 @@ public class App {
              *
              */}
         boolean matchId = false;
-
         while (!matchId) {
             int userToId = consoleService.promptForInt("Enter user id to send money to: ");
 
@@ -143,6 +142,7 @@ public class App {
                 break;
             }
         }
+
     }
 
 //        private void testing( int userId) {

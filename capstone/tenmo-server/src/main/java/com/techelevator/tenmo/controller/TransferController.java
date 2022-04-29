@@ -6,9 +6,7 @@ import com.techelevator.tenmo.dao.UserDao;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -32,9 +30,19 @@ public class TransferController {
 
 
     }
+    @RequestMapping(path = "/amount/{id}", method = RequestMethod.PUT)
+    public void sendMoneyToReceiver(@RequestBody BigDecimal amount, @PathVariable int id ) {
+//    public Transfer sendMoneyToReceiver(@RequestBody Transfer transfer, @PathVariable int id ) {
+
+//         return transferDao.addToReceiverBalance( transfer, id);
+        transferDao.addToReceiverBalance( id, amount);
+
+
+//        accountDao.addMoneyToAccount(amount, id);
+
 //    @RequestMapping(method = RequestMethod.GET)
 //    public Transfer gettransfersByUserName(Principal principal){
 //
 //    }
-
+    }
 }

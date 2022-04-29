@@ -19,12 +19,12 @@ public class Transfer {
 
     public Transfer(){}
 
-    public Transfer(int transferId, BigDecimal amount, int senderId, int receiverId, String transferType) {
-        this.transferId = transferId;
+    public Transfer( BigDecimal amount, int senderId, int receiverId) {
+//        this.transferId = transferId;
         this.amount = amount;
         this.senderId = senderId;
         this.receiverId = receiverId;
-        this.transferType = transferType;
+//        this.transferType = transferType;
     }
 
     public int getTransferId() {

@@ -28,6 +28,7 @@ public class JdbcTransferDao implements TransferDao{
     }
 
     @Override
+//    public void addToReceiverBalance( Transfer transfer, int userId) {
     public void addToReceiverBalance(int userId, BigDecimal amount) {
         String sql= "UPDATE account SET balance = balance + ? WHERE user_id = ?";
         BigDecimal newBalance = getBalance(userId).add(amount);
