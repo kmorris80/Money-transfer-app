@@ -1,6 +1,7 @@
 package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.AuthenticationService;
@@ -136,7 +137,11 @@ public class App {
             if (matchId) {
                 double inputAmount = consoleService.promptForDouble("Enter Dollar amount including decimal: ");
                 BigDecimal transferAmount = BigDecimal.valueOf(inputAmount);
-                transferService.sendMoney(transferAmount, userToId);
+                Transfer transfer = new Transfer();
+                transfer.setAmount(transferAmount);
+                transfer.setReceiverId(userToId);
+                transferService.sendMoney(transfer);
+
             }else {
                 System.out.println("User ID is not found");
                 break;

@@ -14,7 +14,9 @@ public class JdbcTransferDao implements TransferDao{
 
     public Transfer transfer;
 
-
+    public JdbcTransferDao(JdbcTemplate jdbcTemplate){  //Spring needs to run the sql request
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
 
     @Override
@@ -31,8 +33,8 @@ public class JdbcTransferDao implements TransferDao{
 //    public void addToReceiverBalance( Transfer transfer, int userId) {
     public void addToReceiverBalance(int userId, BigDecimal amount) {
         String sql= "UPDATE account SET balance = balance + ? WHERE user_id = ?";
-        BigDecimal newBalance = getBalance(userId).add(amount);
-        jdbcTemplate.update(sql, newBalance, userId);
+
+        jdbcTemplate.update(sql, amount, userId); //correlate to ?
     }
 
     @Override

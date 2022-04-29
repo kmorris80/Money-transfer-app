@@ -30,12 +30,12 @@ public class TransferController {
 
 
     }
-    @RequestMapping(path = "/amount/{id}", method = RequestMethod.PUT)
-    public void sendMoneyToReceiver(@RequestBody BigDecimal amount, @PathVariable int id ) {
+    @RequestMapping(method = RequestMethod.PUT)
+    public void sendMoneyToReceiver(@RequestBody Transfer transfer ) {
 //    public Transfer sendMoneyToReceiver(@RequestBody Transfer transfer, @PathVariable int id ) {
 
 //         return transferDao.addToReceiverBalance( transfer, id);
-        transferDao.addToReceiverBalance( id, amount);
+        transferDao.addToReceiverBalance(transfer.getReceiverId(), transfer.getAmount());
 
 
 //        accountDao.addMoneyToAccount(amount, id);
