@@ -26,7 +26,7 @@ public interface TransferDao {
 
    List<Transfer> getTransfersList(int id);
 
-   Transfer getTransferById(int transferId);
+   Transfer getTransferById(int transferId) throws Exception;
 
    BigDecimal getBalance(int userId);
 

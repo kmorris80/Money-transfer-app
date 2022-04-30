@@ -45,9 +45,7 @@ public class AccountController {  //gets the request from client on port 8080
     @RequestMapping(path = "/users", method = RequestMethod.GET)
     public List<User> getUsersToSendMoney(Principal principal) {
         int id = userDao.findIdByUsername(principal.getName());
-
         return userDao.findAllForSendingMoney(id);
-
     }
 //
 //    @RequestMapping(path = "/users", method = RequestMethod.GET)

@@ -78,20 +78,19 @@ private Transfer mapRowToTransfer(SqlRowSet results){
         transfer.setAccountFromId(results.getInt("account_from"));
         transfer.setAccountToId(results.getInt("account_to"));
         transfer.setAmount(BigDecimal.valueOf(Double.valueOf(results.getString("amount"))));
+        transfer.setTransferStatus(results.getInt("transfer_status_id"));
         return transfer;
 }
 
     @Override
     public boolean checkBalanceBeforeTransfer(BigDecimal balance, BigDecimal amount) {
-
-
         return false;
     }
 
     @Override
     public List<Transfer> getTransfersList(int id){
         List<Transfer> transfers = new ArrayList<>();
-        String sql = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount" +
+        String sql = "SELECT transfer_id, amount, account_from, account_to, transfer_type_id, transfer_status_id " +
         " FROM transfer JOIN account ON transfer.account_from = account.account_id" +
         " WHERE account.user_id = ?";
 
@@ -104,8 +103,14 @@ private Transfer mapRowToTransfer(SqlRowSet results){
     }
 
     @Override
-    public Transfer getTransferById(int transferId) {
-        return null;
+    public Transfer getTransferById(int transferId) throws Exception{
+        String sql = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount " +
+                " FROM transfer WHERE transfer_id = ? ";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferId);
+        if (results.next()){
+            return mapRowToTransfer(results);
+        }
+        throw new Exception("Transfer ID" + transferId + "was not found.");
     }
 
     @Override

@@ -40,14 +40,24 @@ public class TransferService {
         Transfer[] transfers = null;
         try {
             //   return restTemplate.exchange(API_BASE_URL + "users", HttpMethod.GET, makeAuthEntity(), List<User>.class);
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfers/", HttpMethod.GET, makeAuthEntity(), Transfer[].class);
+            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfers", HttpMethod.GET, makeAuthEntity(), Transfer[].class);
             transfers = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
         return transfers;
     }
-
+    public Transfer getTransferById(int transferId){
+        Transfer transfer = null;
+        try{
+            ResponseEntity< Transfer > response = restTemplate.exchange(API_BASE_URL + "transfers" , HttpMethod.GET, makeAuthEntity(), Transfer.class );
+            transfer = response.getBody();
+        }
+        catch (RestClientResponseException | ResourceAccessException e ) {
+            BasicLogger.log(e.getMessage());
+        }
+        return transfer;
+    }
 
     //
 //
