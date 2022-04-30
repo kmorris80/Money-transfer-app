@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.dao;
 
+import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,6 +15,7 @@ public class JdbcTransferDao implements TransferDao{
 
     private JdbcTemplate jdbcTemplate;
     private AccountDao accountDao;
+    private Account account;
 
     public JdbcTransferDao(JdbcTemplate jdbcTemplate, AccountDao accountDao){  //Spring needs to run the sql request
         this.jdbcTemplate = jdbcTemplate;
@@ -47,16 +49,17 @@ public class JdbcTransferDao implements TransferDao{
     }
 
     @Override
-    public Transfer createTransfer(Transfer transfer, int senderId, int receiverId, BigDecimal amount) throws Exception{
+
+    public Transfer createTransfer(Transfer transfer, int senderId, int receiverId, int accountFrom, int accountTo, BigDecimal amount) throws Exception{
         String sql = "INSERT INTO transfer(transfer_type_id, transfer_status_id, account_from, account_to, amount)\n" +
-                "VALUES (?, ?, ?, ?, ?) RETURNING transfer_id";
-        if (  amount.compareTo(accountDao.getBalance(senderId)) <= 0 && amount.compareTo(BigDecimal.ZERO) > 0 ){
+                "VALUES (2, 2 , ?, ?, ?) RETURNING transfer_id";
+//        if (amount.compareTo(accountDao.getBalance(senderId)) <= 0 && amount.compareTo(BigDecimal.ZERO) > 0 ){
            return jdbcTemplate.queryForObject(sql, Transfer.class, transfer.getTransferType(), transfer.getReceiverId(), transfer.getAmount(),
                     transfer.getSenderId(), transfer.getTransferId());
         }
-        else
-            throw new Exception("WHOOOPS not enough money.");
-    }
+//        else
+//            throw new Exception("WHOOOPS not enough money.");
+
 
     @Override
     public boolean checkBalanceBeforeTransfer(BigDecimal balance, BigDecimal amount) {

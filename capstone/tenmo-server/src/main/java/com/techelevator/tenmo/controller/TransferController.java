@@ -32,15 +32,12 @@ public class TransferController {
     }
 
  @RequestMapping(method = RequestMethod.PUT)
-public void withdrawlFromSender(@RequestBody Transfer transfer, Principal principal){
+public void withdrawFromSender(@RequestBody Transfer transfer, Principal principal) throws Exception{
       int senderId =  userDao.findIdByUsername(principal.getName());
       transfer.setSenderId(userDao.findIdByUsername(principal.getName()));
-//        transferDao.createTransfer();
-
-      transferDao.subtractFromSenderBalance(senderId, transfer.getAmount() );
+        transferDao.subtractFromSenderBalance(senderId, transfer.getAmount() );
         transferDao.addToReceiverBalance(transfer.getReceiverId(), transfer.getAmount());
-
-
+//        transferDao.createTransfer(transfer,senderId, transfer.getReceiverId(), transfer.getAmount());
         //transfer dao to write to transfer table
  }
 
