@@ -1,5 +1,7 @@
 package com.techelevator.tenmo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 
 public class Transfer {
@@ -10,7 +12,8 @@ public class Transfer {
     private String transferType;
     private int transferTypeId;
     private int accountFromId;
-    private int accountToId ;
+//    @JsonProperty("account_to")
+    private int accountToId;
     private int transferStatusId;
 
 

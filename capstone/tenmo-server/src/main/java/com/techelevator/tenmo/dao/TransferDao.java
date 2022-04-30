@@ -24,7 +24,7 @@ public interface TransferDao {
 
    boolean notZeroOrNegative();
 
-   List<Transfer> getTransfersList(int id);
+   List<Transfer> getTransfersList(int id) throws Exception;
 
    Transfer getTransferById(int transferId) throws Exception;
 

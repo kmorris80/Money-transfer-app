@@ -71,7 +71,7 @@ public class JdbcTransferDao implements TransferDao{
     }
 //        else
 //            throw new Exception("WHOOOPS not enough money.");
-private Transfer mapRowToTransfer(SqlRowSet results){
+private Transfer mapRowToTransfer(SqlRowSet results) throws Exception {
         Transfer transfer = new Transfer();
         transfer.setTransferId(results.getInt("transfer_id"));
         transfer.setTransferTypeId(results.getInt("transfer_type_id"));
@@ -79,6 +79,7 @@ private Transfer mapRowToTransfer(SqlRowSet results){
         transfer.setAccountToId(results.getInt("account_to"));
         transfer.setAmount(BigDecimal.valueOf(Double.valueOf(results.getString("amount"))));
         transfer.setTransferStatus(results.getInt("transfer_status_id"));
+        transfer.setTransferType(getTransferTypeDescByTransferId(results.getInt("transfer_type_id")));
         return transfer;
 }
 
@@ -88,7 +89,7 @@ private Transfer mapRowToTransfer(SqlRowSet results){
     }
 
     @Override
-    public List<Transfer> getTransfersList(int id){
+    public List<Transfer> getTransfersList(int id) throws Exception {
         List<Transfer> transfers = new ArrayList<>();
         String sql = "SELECT transfer_id, amount, account_from, account_to, transfer_type_id, transfer_status_id " +
         " FROM transfer JOIN account ON transfer.account_from = account.account_id" +
@@ -111,6 +112,16 @@ private Transfer mapRowToTransfer(SqlRowSet results){
             return mapRowToTransfer(results);
         }
         throw new Exception("Transfer ID" + transferId + "was not found.");
+    }
+
+    public String getTransferTypeDescByTransferId(int transferId) throws Exception{
+        String sql = "SELECT transfer_type_desc FROM transfer_type WHERE transfer_type_id =?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferId);
+        if(results.next()){
+            return results.getString("transfer_type_desc");
+
+        }
+        throw new Exception("Transfer desc not found.");
     }
 
     @Override

@@ -31,7 +31,7 @@ public class TransferController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Transfer> getListOfTransfers(Principal principal){
+    public List<Transfer> getListOfTransfers(Principal principal) throws Exception {
         int userId = userDao.findIdByUsername(principal.getName());
         return transferDao.getTransfersList(userId);
     }
