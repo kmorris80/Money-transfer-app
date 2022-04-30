@@ -37,9 +37,9 @@ public void withdrawFromSender(@RequestBody Transfer transfer, Principal princip
       transfer.setSenderId(userDao.findIdByUsername(principal.getName()));
         transferDao.subtractFromSenderBalance(senderId, transfer.getAmount() );
         transferDao.addToReceiverBalance(transfer.getReceiverId(), transfer.getAmount());
-//        transferDao.createTransfer(transfer,senderId, transfer.getReceiverId(), transfer.getAmount());
+        transferDao.createTransfer(transfer);
         //transfer dao to write to transfer table
  }
-
+// transfer.getTransferId(), transfer.getaccountFromId(), transfer.getAccountToId(), transfer.getAmount()
 
 }

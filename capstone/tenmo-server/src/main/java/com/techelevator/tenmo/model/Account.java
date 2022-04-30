@@ -1,12 +1,17 @@
 package com.techelevator.tenmo.model;
 
+import jdk.jfr.Name;
+import org.springframework.context.annotation.Description;
+
 import java.math.BigDecimal;
 
 public class Account {
 
+    @Name("account_id")
     private int accountId;
     private int userId;
     private BigDecimal balance;
+
 
     public Account(int accountId, int userId, BigDecimal balance) {
         this.accountId = accountId;
@@ -37,7 +42,9 @@ public class Account {
     public BigDecimal getBalance() {
         return balance;
     }
-
+public int findAccountIdByUserId(){
+        return accountId;
+}
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }

@@ -51,7 +51,16 @@ public class JdbcAccountDao implements AccountDao {//all database to server
         }
         return account.getBalance();
     }
-
+    @Override
+    public int findAccountIdByUserId(int userId) {
+        Account account = new Account();
+        String sql = "SELECT account_id FROM account WHERE user_id = ?;";
+        SqlRowSet accountId = jdbcTemplate.queryForRowSet(sql, userId);
+        if (accountId.next()) {
+            account = mapRowToAccount(accountId);
+        }
+        return account.getAccountId();
+    }
     @Override
     public void addMoneyToAccount(BigDecimal amount, int userId) {
 

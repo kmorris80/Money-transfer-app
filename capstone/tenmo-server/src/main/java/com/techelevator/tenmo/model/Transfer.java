@@ -8,6 +8,10 @@ public class Transfer {
     private int senderId;
     private int receiverId;
     private String transferType;
+    private int transferTypeId;
+    private int accountFromId;
+    private int accountToId ;
+
 
     public String getTransferType() {
         return transferType;
@@ -19,12 +23,29 @@ public class Transfer {
 
     public Transfer(){}
 
-    public Transfer( BigDecimal amount, int senderId, int receiverId) {
+    public Transfer( BigDecimal amount, int senderId, int receiverId, int transferTypeId, int accountFromId, int accountToId) {
 //        this.transferId = transferId;
         this.amount = amount;
         this.senderId = senderId;
         this.receiverId = receiverId;
+        this.transferTypeId = transferTypeId;
+        this.accountFromId = accountFromId;
+        this.accountToId = accountToId;
 //        this.transferType = transferType;
+    }
+
+    @Override
+    public String toString() {
+        return "Transfer{" +
+                "transferId=" + transferId +
+                ", amount=" + amount +
+                ", senderId=" + senderId +
+                ", receiverId=" + receiverId +
+                ", transferType='" + transferType + '\'' +
+                ", transferTypeId=" + transferTypeId +
+                ", accountFromId=" + accountFromId +
+                ", accountToId=" + accountToId +
+                '}';
     }
 
     public int getTransferId() {
@@ -59,7 +80,26 @@ public class Transfer {
         this.receiverId = receiverId;
     }
 
+    public void getTransferTypeId(int transferTypeId){
+        this.transferTypeId = transferTypeId;
+    }
 
 
+    public void setTransferTypeId(int transfer_type_id) {
+    }
+public int getaccountFromId() {
+    return accountFromId;
+}
+
+    public void setAccountFromId(int accountFromId) {
+        this.accountFromId = accountFromId;
+    }
+    public int getAccountToId() {
+        return accountToId;
+    }
+
+    public void setAccountToId(int accountToId) {
+        this.accountToId = accountToId;
+    }
 
 }

@@ -2,12 +2,11 @@ package com.techelevator.tenmo.dao;
 
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.security.Principal;
 import java.util.List;
 
 @Component
@@ -49,17 +48,37 @@ public class JdbcTransferDao implements TransferDao{
     }
 
     @Override
-
-    public Transfer createTransfer(Transfer transfer, int senderId, int receiverId, int accountFrom, int accountTo, BigDecimal amount) throws Exception{
+//    public Transfer createTransfer(Transfer transfer, int senderId, int receiverId, int accountFrom, int accountTo, BigDecimal amount) throws Exception{
+    public boolean createTransfer(Transfer transfer) throws Exception{
+        System.out.println(transfer.toString());
         String sql = "INSERT INTO transfer(transfer_type_id, transfer_status_id, account_from, account_to, amount)\n" +
-                "VALUES (2, 2 , ?, ?, ?) RETURNING transfer_id";
-//        if (amount.compareTo(accountDao.getBalance(senderId)) <= 0 && amount.compareTo(BigDecimal.ZERO) > 0 ){
-           return jdbcTemplate.queryForObject(sql, Transfer.class, transfer.getTransferType(), transfer.getReceiverId(), transfer.getAmount(),
-                    transfer.getSenderId(), transfer.getTransferId());
-        }
+                "VALUES (?, ?, (SELECT account_id FROM account WHERE user_id = ?), (SELECT account_id FROM account WHERE user_id = ?), ?) RETURNING transfer_id";
+        BigDecimal amount = transfer.getAmount();
+        boolean success = false;
+        if (amount.compareTo(accountDao.getBalance(transfer.getSenderId())) <= 0 && amount.compareTo(BigDecimal.ZERO) > 0 ){
+           int id =  jdbcTemplate.queryForObject(sql, int.class,2, 2,transfer.getSenderId(), transfer.getReceiverId(), transfer.getAmount());
+           sql = "SELECT * FROM transfer WHERE transfer_id = ?";
+           SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+           success = true;
+           if (results.next()){
+                mapRowToTransfer(results);
+           }
+
+        }else
+            throw new Exception("Transfer not logged.");
+        return success;
+    }
 //        else
 //            throw new Exception("WHOOOPS not enough money.");
-
+private Transfer mapRowToTransfer(SqlRowSet results){
+        Transfer transfer = new Transfer();
+        transfer.setTransferId(results.getInt("transfer_id"));
+        transfer.setTransferTypeId(results.getInt("transfer_type_id"));
+        transfer.setAccountFromId(results.getInt("account_from"));
+        transfer.setAccountToId(results.getInt("account_to"));
+        transfer.setAmount(BigDecimal.valueOf(Double.valueOf(results.getString("amount"))));
+        return transfer;
+}
 
     @Override
     public boolean checkBalanceBeforeTransfer(BigDecimal balance, BigDecimal amount) {
@@ -81,6 +100,11 @@ public class JdbcTransferDao implements TransferDao{
     @Override
     public BigDecimal getBalance(int userId) {
         return null;
+    }
+
+    @Override
+    public int getSetAccountFromId(int accountFromId) {
+        return 0;
     }
 
 
