@@ -3,11 +3,9 @@ package com.techelevator.tenmo.services;
 
 //import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.tenmo.model.User;
 import com.techelevator.util.BasicLogger;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
@@ -37,6 +35,17 @@ public class TransferService {
         }
         System.out.println(success);
         return success;
+    }
+    public Transfer[] getTransferList(){
+        Transfer[] transfers = null;
+        try {
+            //   return restTemplate.exchange(API_BASE_URL + "users", HttpMethod.GET, makeAuthEntity(), List<User>.class);
+            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "transfers/", HttpMethod.GET, makeAuthEntity(), Transfer[].class);
+            transfers = response.getBody();
+        } catch (RestClientResponseException | ResourceAccessException e) {
+            BasicLogger.log(e.getMessage());
+        }
+        return transfers;
     }
 
 

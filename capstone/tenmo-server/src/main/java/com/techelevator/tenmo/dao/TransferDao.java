@@ -24,13 +24,15 @@ public interface TransferDao {
 
    boolean notZeroOrNegative();
 
-   List<Transfer> transfersList();
+   List<Transfer> getTransfersList(int id);
 
    Transfer getTransferById(int transferId);
 
    BigDecimal getBalance(int userId);
 
    int getSetAccountFromId(int accountFromId);
+
+
 
 
 

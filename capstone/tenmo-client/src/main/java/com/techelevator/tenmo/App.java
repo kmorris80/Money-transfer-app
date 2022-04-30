@@ -103,7 +103,10 @@ public class App {
     }
 
     private void viewTransferHistory() {
-        // TODO Auto-generated method stub
+       Transfer[] transferList = transferService.getTransferList();
+       for(Transfer eachTransfer : transferList){
+           System.out.println(eachTransfer.toString());
+       }
 
     }
 

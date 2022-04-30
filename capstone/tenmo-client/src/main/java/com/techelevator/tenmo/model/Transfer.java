@@ -59,6 +59,14 @@ public class Transfer {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "Transfer{" +
+                "transferId=" + transferId +
+                ", amount=" + amount +
+                ", senderId=" + senderId +
+                ", receiverId=" + receiverId +
+                ", transferType='" + transferType + '\'' +
+                '}';
+    }
 }

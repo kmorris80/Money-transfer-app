@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -88,8 +89,18 @@ private Transfer mapRowToTransfer(SqlRowSet results){
     }
 
     @Override
-    public List<Transfer> transfersList() {
-        return null;
+    public List<Transfer> getTransfersList(int id){
+        List<Transfer> transfers = new ArrayList<>();
+        String sql = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount" +
+        " FROM transfer JOIN account ON transfer.account_from = account.account_id" +
+        " WHERE account.user_id = ?";
+
+        SqlRowSet transferList = jdbcTemplate.queryForRowSet(sql, id);
+        while(transferList.next()){
+            Transfer transfer = mapRowToTransfer(transferList);
+            transfers.add(transfer);
+        }
+        return transfers;
     }
 
     @Override
