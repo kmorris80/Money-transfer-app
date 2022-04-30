@@ -2,6 +2,7 @@ package com.techelevator.tenmo.dao;
 
 import com.techelevator.tenmo.model.Account;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public class JdbcAccountDao implements AccountDao {//all database to server
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcAccountDao(JdbcTemplate jdbcTemplate){
+    public JdbcAccountDao(SingleConnectionDataSource dataSource){
         this.jdbcTemplate = jdbcTemplate;
     }
     private Account mapRowToAccount(SqlRowSet result) {
