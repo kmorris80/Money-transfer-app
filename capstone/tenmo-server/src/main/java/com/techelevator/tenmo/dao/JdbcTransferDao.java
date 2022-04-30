@@ -36,8 +36,9 @@ public class JdbcTransferDao implements TransferDao{
     public void addToReceiverBalance(int userId, BigDecimal amount) {
         String sql= "UPDATE account SET balance = balance + ? WHERE user_id = ?";
 
+
         jdbcTemplate.update(sql, amount, userId); //correlate to ?
-    }
+        }
 
     @Override
     public void subtractFromSenderBalance(int userId, BigDecimal amount) {

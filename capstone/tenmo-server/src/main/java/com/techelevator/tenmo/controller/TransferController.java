@@ -35,7 +35,7 @@ public class TransferController {
 public void withdrawlFromSender(@RequestBody Transfer transfer, Principal principal){
       int senderId =  userDao.findIdByUsername(principal.getName());
       transfer.setSenderId(userDao.findIdByUsername(principal.getName()));
-        transferDao.createTransfer();
+//        transferDao.createTransfer();
 
       transferDao.subtractFromSenderBalance(senderId, transfer.getAmount() );
         transferDao.addToReceiverBalance(transfer.getReceiverId(), transfer.getAmount());
