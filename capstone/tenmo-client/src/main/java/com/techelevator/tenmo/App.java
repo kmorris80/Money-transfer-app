@@ -1,9 +1,6 @@
 package com.techelevator.tenmo;
 
-import com.techelevator.tenmo.model.AuthenticatedUser;
-import com.techelevator.tenmo.model.Transfer;
-import com.techelevator.tenmo.model.User;
-import com.techelevator.tenmo.model.UserCredentials;
+import com.techelevator.tenmo.model.*;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TenmoService;
@@ -88,8 +85,8 @@ public class App {
                 sendBucks();
             } else if (menuSelection == 5) {
                 requestBucks();
-            } else if (menuSelection == 6) {
-                viewTransferById();
+//            } else if (menuSelection == 6) {
+//                viewTransferById();
             } else if (menuSelection == 0) {
                 continue;
             } else {
@@ -109,16 +106,20 @@ public class App {
        for(Transfer eachTransfer : transferList){
            System.out.println(eachTransfer.toString());
        }
-
-    }
-
-    private void viewTransferById() {
-        // TODO Auto-generated method stub
         int transferId = consoleService.promptForInt("Enter transfer id to view transaction: ");
-        System.out.println("Your transfer details are: " + transferService.getTransferById(transferId)); //using the principal
-
-
+        System.out.println("Your transfer details are: " + transferService.getTransferById(transferId));
+        Transfer transfer = new Transfer();
+        transfer = transferService.getTransferById(transferId);
+        System.out.println(transfer.toString());
     }
+
+//    private void viewTransferById() {
+//        // TODO Auto-generated method stub
+//        int transferId = consoleService.promptForInt("Enter transfer id to view transaction: ");
+//        System.out.println("Your transfer details are: " + transferService.getTransferById(transferId)); //using the principal
+//
+
+//    }
 
     private void viewPendingRequests() {
         // TODO Auto-generated method stub

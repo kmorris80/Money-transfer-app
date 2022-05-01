@@ -1,13 +1,9 @@
 package com.techelevator.tenmo.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.math.BigDecimal;
 
 public class TransferForMenu {
-    @JsonProperty("username_from")
     private String usernameFrom;
-    @JsonProperty("username_to")
     private String usernameTo;
     private BigDecimal amount;
     private int senderId;

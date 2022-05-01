@@ -2,6 +2,7 @@ package com.techelevator.tenmo.dao;
 
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.tenmo.model.TransferForMenu;
 import com.techelevator.tenmo.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -82,7 +83,7 @@ private Transfer mapRowToTransfer(SqlRowSet results) throws Exception {
         transfer.setAccountTo(results.getInt("account_to"));
         transfer.setAmount(BigDecimal.valueOf(Double.valueOf(results.getString("amount"))));
         transfer.setTransferStatus(results.getInt("transfer_status_id"));
-        transfer.setTransferType(getTransferTypeDescByTransferId(results.getInt("transfer_type_id")));
+//        transfer.setTransferType(getTransferTypeDescByTransferId(results.getInt("transfer_type_id")));
         return transfer;
 }
 
@@ -94,25 +95,28 @@ private Transfer mapRowToTransfer(SqlRowSet results) throws Exception {
     @Override
     public List<Transfer> getTransfersList(int id) throws Exception {
         List<Transfer> transfers = new ArrayList<>();
-        String sql = "SELECT transfer_id, amount, tt.transfer_type_desc, ts.transfer_status_desc, t.username " +
+        String sql = "SELECT transfer_id, amount, transfer_type_desc, transfer_status_desc, t.username " +
                 " AS username_from, t1.username AS username_to FROM transfer JOIN account a ON transfer.account_from = a.account_id" +
         " JOIN account a1 ON transfer.account_to = a1.account_id" +
         " JOIN tenmo_user t ON t.user_id = a.user_id"+
         " JOIN tenmo_user t1 ON t1.user_id = a1.user_id" +
         " JOIN transfer_status ts ON ts.transfer_status_id = transfer.transfer_status_id" +
         " JOIN transfer_type tt ON tt.transfer_type_id = transfer.transfer_status_id" +
-        " WHERE t.user_id = 1001";
+        " WHERE t.user_id = ?";
 
         SqlRowSet transferList = jdbcTemplate.queryForRowSet(sql, id);
         while(transferList.next()){
             Transfer transfer = new Transfer();
+            TransferForMenu transferForMenu = new TransferForMenu();
             transfer.setTransferId(transferList.getInt("transfer_id"));
             transfer.setAmount(transferList.getBigDecimal("amount"));
-            transfer.setAccountFrom(transferList.getInt("account_from"));
-            int accountTo= transferList.getInt("account_to");
-            transfer.setUsername(userDao.findUserNameByAccountId(accountTo));
-            transfer.setTransferTypeId(transferList.getInt("transfer_type_id"));
-            transfer.setTransferStatus(transferList.getInt("transfer_status_id"));
+//            transfer.setAccountFrom(transferList.getInt("account_from"));
+//            int accountTo= transferList.getInt("account_to");
+//            transfer.setUsername(userDao.findUserNameByAccountId(accountTo));
+            transferForMenu.setTransferTypeDesc(transferList.getString("transfer_type_desc"));
+            transferForMenu.setTransferStatusDesc(transferList.getString("transfer_status_desc"));
+            transferForMenu.setUsernameFrom(transferList.getString("username_from"));
+            transferForMenu.setUsernameTo(transferList.getString("username_to"));
             transfers.add(transfer);
         }
         return transfers;

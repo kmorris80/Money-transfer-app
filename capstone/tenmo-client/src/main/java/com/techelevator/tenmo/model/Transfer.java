@@ -8,23 +8,26 @@ public class Transfer {
     private int senderId;
     private int receiverId;
     private String transferType;
+    private String transferTypeDesc;
+    private String transferStatusDesc;
+    private String usernameFrom;
+    private String usernameTo;
 
-    public String getTransferType() {
-        return transferType;
-    }
-
-    public void setTransferType(String transferType) {
+    public Transfer(int transferId, BigDecimal amount, int senderId, int receiverId, String transferType, String transferTypeDesc, String transferStatusDesc, String usernameFrom, String usernameTo) {
+        this.transferId = transferId;
+        this.amount = amount;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
         this.transferType = transferType;
+        this.transferTypeDesc = transferTypeDesc;
+        this.transferStatusDesc = transferStatusDesc;
+        this.usernameFrom = usernameFrom;
+        this.usernameTo = usernameTo;
     }
 
     public Transfer(){}
 
-    public Transfer(BigDecimal amount, int senderId, int receiverId) {
-        this.amount = amount;
-        this.senderId = senderId;
-        this.receiverId = receiverId;
 
-    }
 
     public int getTransferId() {
         return transferId;
@@ -57,16 +60,65 @@ public class Transfer {
     public void setReceiverId(int receiverId) {
         this.receiverId = receiverId;
     }
+    public String getTransferTypeDesc() {
+        return transferTypeDesc;
+    }
 
+    public void setTransferTypeDesc(String transferTypeDesc) {
+        this.transferTypeDesc = transferTypeDesc;
+    }
 
+    public String getTransferStatusDesc() {
+        return transferStatusDesc;
+    }
+
+    public void setTransferStatusDesc(String transferStatusDesc) {
+        this.transferStatusDesc = transferStatusDesc;
+    }
+
+    public String getUsernameFrom() {
+        return usernameFrom;
+    }
+
+    public void setUsernameFrom(String usernameFrom) {
+        this.usernameFrom = usernameFrom;
+    }
+
+    public String getUsernameTo() {
+        return usernameTo;
+    }
+
+    public void setUsernameTo(String usernameTo) {
+        this.usernameTo = usernameTo;
+    }
+
+    public String getTransferType() {
+        return transferType;
+    }
+
+    public void setTransferType(String transferType) {
+        this.transferType = transferType;
+    }
+
+//    @Override
+//    public String toString() {
+//        return
+//
+//                "Transfer{" +
+//                "transferId=" + transferId +
+//                ", amount=" + amount +
+//                ", senderId=" + senderId +
+//                ", receiverId=" + receiverId +
+//                ", transferType='" + transferType + '\'' +
+//                ", transferTypeDesc='" + transferTypeDesc + '\'' +
+//                ", transferStatusDesc='" + transferStatusDesc + '\'' +
+//                ", usernameFrom='" + usernameFrom + '\'' +
+//                ", usernameTo='" + usernameTo + '\'' +
+//                '}';
+//    }
+    // correct format
     @Override
-    public String toString() {
-        return "Transfer{" +
-                "transferId=" + transferId +
-                ", amount=" + amount +
-                ", senderId=" + senderId +
-                ", receiverId=" + receiverId +
-                ", transferType='" + transferType + '\'' +
-                '}';
+    public String toString(){
+        return "Transfer ID: " + getTransferId()  + " Sent to: " + getUsernameTo()+ " Amount: $" + getAmount();
     }
 }

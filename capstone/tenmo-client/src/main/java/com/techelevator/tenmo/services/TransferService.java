@@ -48,7 +48,7 @@ public class TransferService {
         return transfers;
     }
     public Transfer getTransferById(int transferId){
-        Transfer transfer = null;
+        Transfer transfer = new Transfer();
         try{
             ResponseEntity< Transfer > response = restTemplate.exchange(API_BASE_URL + "transfers/" + transferId , HttpMethod.GET, makeAuthEntity(), Transfer.class );
             transfer = response.getBody();
@@ -75,5 +75,5 @@ public class TransferService {
             headers.setBearerAuth(authToken);
             return new HttpEntity<>(headers);
         }
-    }
+}
 

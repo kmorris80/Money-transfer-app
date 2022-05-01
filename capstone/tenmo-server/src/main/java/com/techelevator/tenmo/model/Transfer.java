@@ -15,6 +15,7 @@ public class Transfer {
     private int accountTo;
     private int transferStatusId;
     private String username;
+    private String transferTypeDesc;
 
     public String getUsername() {
         return username;
