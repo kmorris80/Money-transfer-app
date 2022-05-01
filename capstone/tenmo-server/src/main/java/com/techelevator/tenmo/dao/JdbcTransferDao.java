@@ -94,9 +94,14 @@ private Transfer mapRowToTransfer(SqlRowSet results) throws Exception {
     @Override
     public List<Transfer> getTransfersList(int id) throws Exception {
         List<Transfer> transfers = new ArrayList<>();
-        String sql = "SELECT transfer_id, amount, account_from, account_to, transfer_type_id, transfer_status_id " +
-        " FROM transfer JOIN account ON transfer.account_from = account.account_id" +
-        " WHERE account.user_id = ?";
+        String sql = "SELECT transfer_id, amount, tt.transfer_type_desc, ts.transfer_status_desc, t.username " +
+                " AS username_from, t1.username AS username_to FROM transfer JOIN account a ON transfer.account_from = a.account_id" +
+        " JOIN account a1 ON transfer.account_to = a1.account_id" +
+        " JOIN tenmo_user t ON t.user_id = a.user_id"+
+        " JOIN tenmo_user t1 ON t1.user_id = a1.user_id" +
+        " JOIN transfer_status ts ON ts.transfer_status_id = transfer.transfer_status_id" +
+        " JOIN transfer_type tt ON tt.transfer_type_id = transfer.transfer_status_id" +
+        " WHERE t.user_id = 1001";
 
         SqlRowSet transferList = jdbcTemplate.queryForRowSet(sql, id);
         while(transferList.next()){

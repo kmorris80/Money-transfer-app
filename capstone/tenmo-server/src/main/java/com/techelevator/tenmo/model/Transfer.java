@@ -12,7 +12,6 @@ public class Transfer {
     private String transferType;
     private int transferTypeId;
     private int accountFrom;
-//    @JsonProperty("account_to")
     private int accountTo;
     private int transferStatusId;
     private String username;
@@ -47,6 +46,7 @@ public class Transfer {
         this.username = username;
 //        this.transferType = transferType;
     }
+    //new model with usernameFrom, usernameTo, userIdFrom, userIdTo, transaction Id, amount
 
     @Override
     public String toString() {
