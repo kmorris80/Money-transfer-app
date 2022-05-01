@@ -50,7 +50,7 @@ public class TransferService {
     public Transfer getTransferById(int transferId){
         Transfer transfer = null;
         try{
-            ResponseEntity< Transfer > response = restTemplate.exchange(API_BASE_URL + "transfers" , HttpMethod.GET, makeAuthEntity(), Transfer.class );
+            ResponseEntity< Transfer > response = restTemplate.exchange(API_BASE_URL + "transfers/" + transferId , HttpMethod.GET, makeAuthEntity(), Transfer.class );
             transfer = response.getBody();
         }
         catch (RestClientResponseException | ResourceAccessException e ) {

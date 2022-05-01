@@ -11,11 +11,19 @@ public class Transfer {
     private int receiverId;
     private String transferType;
     private int transferTypeId;
-    private int accountFromId;
+    private int accountFrom;
 //    @JsonProperty("account_to")
-    private int accountToId;
+    private int accountTo;
     private int transferStatusId;
+    private String username;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getTransferType() {
         return transferType;
@@ -27,15 +35,16 @@ public class Transfer {
 
     public Transfer(){}
 
-    public Transfer( BigDecimal amount, int senderId, int receiverId, int transferTypeId, int accountFromId, int accountToId, int transferStatusId) {
+    public Transfer( BigDecimal amount, int senderId, int receiverId, int transferTypeId, int accountFromId, int accountToId, int transferStatusId, String username) {
 //        this.transferId = transferId;
         this.amount = amount;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.transferTypeId = transferTypeId;
-        this.accountFromId = accountFromId;
-        this.accountToId = accountToId;
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
         this.transferStatusId = transferStatusId;
+        this.username = username;
 //        this.transferType = transferType;
     }
 
@@ -48,8 +57,8 @@ public class Transfer {
                 ", receiverId=" + receiverId +
                 ", transferType='" + transferType + '\'' +
                 ", transferTypeId=" + transferTypeId +
-                ", accountFromId=" + accountFromId +
-                ", accountToId=" + accountToId +
+                ", accountFromId=" + accountFrom +
+                ", accountToId=" + accountTo +
                 '}';
     }
 
@@ -92,19 +101,19 @@ public class Transfer {
 
     public void setTransferTypeId(int transfer_type_id) {
     }
-public int getaccountFromId() {
-    return accountFromId;
+public int getaccountFrom() {
+    return accountFrom;
 }
 
-    public void setAccountFromId(int accountFromId) {
-        this.accountFromId = accountFromId;
+    public void setAccountFrom(int accountFromId) {
+        this.accountFrom = accountFromId;
     }
-    public int getAccountToId() {
-        return accountToId;
+    public int getAccountTo() {
+        return accountTo;
     }
 
-    public void setAccountToId(int accountToId) {
-        this.accountToId = accountToId;
+    public void setAccountTo(int accountToId) {
+        this.accountTo = accountToId;
     }
 
 }

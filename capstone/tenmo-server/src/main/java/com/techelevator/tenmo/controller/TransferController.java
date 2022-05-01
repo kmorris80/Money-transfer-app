@@ -45,6 +45,10 @@ public void withdrawFromSender(@RequestBody Transfer transfer, Principal princip
         transferDao.createTransfer(transfer);
         //transfer dao to write to transfer table
  }
+ @RequestMapping(path="/{transferId}", method = RequestMethod.GET)
+    public void getTransferByTransferId(@PathVariable int transferId) throws Exception {
+        transferDao.getTransferById(transferId);
+ }
 // transfer.getTransferId(), transfer.getaccountFromId(), transfer.getAccountToId(), transfer.getAmount()
 
 }

@@ -2,6 +2,7 @@ package com.techelevator.tenmo.dao;
 
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.tenmo.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -16,10 +17,12 @@ public class JdbcTransferDao implements TransferDao{
     private JdbcTemplate jdbcTemplate;
     private AccountDao accountDao;
     private Account account;
+    private UserDao userDao;
 
-    public JdbcTransferDao(JdbcTemplate jdbcTemplate, AccountDao accountDao){  //Spring needs to run the sql request
+    public JdbcTransferDao(JdbcTemplate jdbcTemplate, AccountDao accountDao, UserDao userDao){  //Spring needs to run the sql request
         this.jdbcTemplate = jdbcTemplate;
         this.accountDao = accountDao;
+        this.userDao = userDao;
     }
 
 
@@ -75,8 +78,8 @@ private Transfer mapRowToTransfer(SqlRowSet results) throws Exception {
         Transfer transfer = new Transfer();
         transfer.setTransferId(results.getInt("transfer_id"));
         transfer.setTransferTypeId(results.getInt("transfer_type_id"));
-        transfer.setAccountFromId(results.getInt("account_from"));
-        transfer.setAccountToId(results.getInt("account_to"));
+        transfer.setAccountFrom(results.getInt("account_from"));
+        transfer.setAccountTo(results.getInt("account_to"));
         transfer.setAmount(BigDecimal.valueOf(Double.valueOf(results.getString("amount"))));
         transfer.setTransferStatus(results.getInt("transfer_status_id"));
         transfer.setTransferType(getTransferTypeDescByTransferId(results.getInt("transfer_type_id")));
@@ -97,7 +100,14 @@ private Transfer mapRowToTransfer(SqlRowSet results) throws Exception {
 
         SqlRowSet transferList = jdbcTemplate.queryForRowSet(sql, id);
         while(transferList.next()){
-            Transfer transfer = mapRowToTransfer(transferList);
+            Transfer transfer = new Transfer();
+            transfer.setTransferId(transferList.getInt("transfer_id"));
+            transfer.setAmount(transferList.getBigDecimal("amount"));
+            transfer.setAccountFrom(transferList.getInt("account_from"));
+            int accountTo= transferList.getInt("account_to");
+            transfer.setUsername(userDao.findUserNameByAccountId(accountTo));
+            transfer.setTransferTypeId(transferList.getInt("transfer_type_id"));
+            transfer.setTransferStatus(transferList.getInt("transfer_status_id"));
             transfers.add(transfer);
         }
         return transfers;
@@ -108,10 +118,11 @@ private Transfer mapRowToTransfer(SqlRowSet results) throws Exception {
         String sql = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount " +
                 " FROM transfer WHERE transfer_id = ? ";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferId);
+        Transfer transfer = new Transfer();
         if (results.next()){
-            return mapRowToTransfer(results);
+            transfer = mapRowToTransfer(results);
         }
-        throw new Exception("Transfer ID" + transferId + "was not found.");
+        return transfer;
     }
 
     public String getTransferTypeDescByTransferId(int transferId) throws Exception{

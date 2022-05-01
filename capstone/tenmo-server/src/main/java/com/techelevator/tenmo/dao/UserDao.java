@@ -15,4 +15,6 @@ public interface UserDao {
     boolean create(String username, String password);
 
     List<User> findAllForSendingMoney(int id);
+
+    String findUserNameByAccountId(int id);
 }
