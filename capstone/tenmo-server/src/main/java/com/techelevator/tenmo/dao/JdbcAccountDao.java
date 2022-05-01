@@ -13,7 +13,7 @@ import java.util.List;
 public class JdbcAccountDao implements AccountDao {//all database to server
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcAccountDao(SingleConnectionDataSource dataSource){
+    public JdbcAccountDao(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
     private Account mapRowToAccount(SqlRowSet result) {

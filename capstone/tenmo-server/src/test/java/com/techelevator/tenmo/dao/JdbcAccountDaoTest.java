@@ -22,7 +22,7 @@ public class JdbcAccountDaoTest {
     @BeforeClass
     public static void setupData(){
         dataSource = new SingleConnectionDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:8080/");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/test_tenmo");
         dataSource.setUsername("postgres");
         dataSource.setPassword("postgres1");
         dataSource.setAutoCommit(false);
@@ -33,7 +33,7 @@ public class JdbcAccountDaoTest {
         String sql = "INSERT account (account_id, user_id, balance) VALUES (2001, 1001, 1000)" ;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         jdbcTemplate.update(sql);
-        sut = new JdbcAccountDao(dataSource);
+        sut = new JdbcAccountDao(jdbcTemplate);
     }
 
     @After
