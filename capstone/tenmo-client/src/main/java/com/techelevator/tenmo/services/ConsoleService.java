@@ -42,7 +42,7 @@ public class ConsoleService {
         System.out.println("3: View your pending requests");
         System.out.println("4: Send TE bucks");
         System.out.println("5: Request TE bucks");
-        System.out.println("6: View a past transfer by ID");
+//        System.out.println("6: View a past transfer by ID");
         System.out.println("0: Exit");
         System.out.println();
     }
@@ -99,5 +99,17 @@ public class ConsoleService {
     public void printErrorMessage() {
         System.out.println("An error occurred. Check the log for details.");
     }
+
+    public void printTransactionHeader(){
+        System.out.println("_____________________________________________________");
+        System.out.println("User                                                 ");
+        System.out.println("ID                         Name                      ");
+        System.out.println("_____________________________________________________");
+
+    }
+    public void printTransactionHeaderBottom(){
+        System.out.println("_____________");
+    }
+
 
 }

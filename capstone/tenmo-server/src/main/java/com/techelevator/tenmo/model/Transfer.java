@@ -14,15 +14,17 @@ public class Transfer {
     private int accountFrom;
     private int accountTo;
     private int transferStatusId;
-    private String username;
+    private String usernameTo;
+    private String usernameFrom;
     private String transferTypeDesc;
+    private String transferStatusDesc;
 
-    public String getUsername() {
-        return username;
+    public String getTransferStatusDesc() {
+        return transferStatusDesc;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setTransferStatusDesc(String tranferStatusDesc) {
+        this.transferStatusDesc = tranferStatusDesc;
     }
 
     public String getTransferType() {
@@ -35,18 +37,31 @@ public class Transfer {
 
     public Transfer(){}
 
-    public Transfer( BigDecimal amount, int senderId, int receiverId, int transferTypeId, int accountFromId, int accountToId, int transferStatusId, String username) {
-//        this.transferId = transferId;
+    public Transfer(int transferId, BigDecimal amount, int senderId, int receiverId, String transferType,
+                    int transferTypeId, int accountFrom, int accountTo, int transferStatusId, String usernameTo, String usernameFrom, String transferTypeDesc, String transferStatusDesc) {
+        this.transferId = transferId;
         this.amount = amount;
         this.senderId = senderId;
         this.receiverId = receiverId;
+        this.transferType = transferType;
         this.transferTypeId = transferTypeId;
         this.accountFrom = accountFrom;
         this.accountTo = accountTo;
         this.transferStatusId = transferStatusId;
-        this.username = username;
-//        this.transferType = transferType;
+        this.usernameTo = usernameTo;
+        this.usernameFrom = usernameFrom;
+        this.transferTypeDesc = transferTypeDesc;
+        this.transferStatusDesc = transferStatusDesc;
     }
+
+    public String getTransferTypeDesc() {
+        return transferTypeDesc;
+    }
+
+    public void setTransferTypeDesc(String transferTypeDesc) {
+        this.transferTypeDesc = transferTypeDesc;
+    }
+//        this.transferType = transferType;
     //new model with usernameFrom, usernameTo, userIdFrom, userIdTo, transaction Id, amount
 
     @Override
@@ -116,5 +131,18 @@ public int getaccountFrom() {
     public void setAccountTo(int accountToId) {
         this.accountTo = accountToId;
     }
+    public void setUsernameTo(String usernameTo) {
+        this.usernameTo = usernameTo;
+    }
+    public void setUsernameFrom(String usernameFrom) {
+        this.usernameFrom = usernameFrom;
+    }
 
+    public String getUsernameTo() {
+        return usernameTo;
+    }
+
+    public String getUsernameFrom() {
+        return usernameFrom;
+    }
 }

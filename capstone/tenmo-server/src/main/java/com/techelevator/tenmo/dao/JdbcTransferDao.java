@@ -107,16 +107,16 @@ private Transfer mapRowToTransfer(SqlRowSet results) throws Exception {
         SqlRowSet transferList = jdbcTemplate.queryForRowSet(sql, id);
         while(transferList.next()){
             Transfer transfer = new Transfer();
-            TransferForMenu transferForMenu = new TransferForMenu();
+//            TransferForMenu transferForMenu = new TransferForMenu();
             transfer.setTransferId(transferList.getInt("transfer_id"));
             transfer.setAmount(transferList.getBigDecimal("amount"));
 //            transfer.setAccountFrom(transferList.getInt("account_from"));
 //            int accountTo= transferList.getInt("account_to");
 //            transfer.setUsername(userDao.findUserNameByAccountId(accountTo));
-            transferForMenu.setTransferTypeDesc(transferList.getString("transfer_type_desc"));
-            transferForMenu.setTransferStatusDesc(transferList.getString("transfer_status_desc"));
-            transferForMenu.setUsernameFrom(transferList.getString("username_from"));
-            transferForMenu.setUsernameTo(transferList.getString("username_to"));
+            transfer.setTransferTypeDesc(transferList.getString("transfer_type_desc"));
+            transfer.setTransferStatusDesc(transferList.getString("transfer_status_desc"));
+            transfer.setUsernameFrom(transferList.getString("username_from"));
+            transfer.setUsernameTo(transferList.getString("username_to"));
             transfers.add(transfer);
         }
         return transfers;
@@ -129,6 +129,7 @@ private Transfer mapRowToTransfer(SqlRowSet results) throws Exception {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferId);
         Transfer transfer = new Transfer();
         if (results.next()){
+
             transfer = mapRowToTransfer(results);
         }
         return transfer;
@@ -161,3 +162,5 @@ private Transfer mapRowToTransfer(SqlRowSet results) throws Exception {
     }
 
 }
+//    String sql = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount " +
+////                " FROM transfer WHERE transfer_id = ? ";

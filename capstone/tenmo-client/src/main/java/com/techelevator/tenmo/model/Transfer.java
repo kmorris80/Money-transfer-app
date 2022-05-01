@@ -119,6 +119,11 @@ public class Transfer {
     // correct format
     @Override
     public String toString(){
-        return "Transfer ID: " + getTransferId()  + " Sent to: " + getUsernameTo()+ " Amount: $" + getAmount();
+        return "Transfer ID: " + getTransferId()  + "\nSent to: " + getUsernameTo()+ " | Amount: $" + getAmount();
+    }
+
+    public String toStringForTransferDetails(){
+        return "ID: " + getTransferId() + "\nFrom: " + getUsernameFrom() + "\nTo:  " + getUsernameTo() + "\nType:  " + getTransferTypeDesc() + "\nStatus:  " + getTransferStatusDesc()
+                + "\nAmount:  " + getAmount();
     }
 }

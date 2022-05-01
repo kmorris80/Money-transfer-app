@@ -110,7 +110,8 @@ public class App {
         System.out.println("Your transfer details are: " + transferService.getTransferById(transferId));
         Transfer transfer = new Transfer();
         transfer = transferService.getTransferById(transferId);
-        System.out.println(transfer.toString());
+        System.out.println(transfer.toStringForTransferDetails());
+
     }
 
 //    private void viewTransferById() {
