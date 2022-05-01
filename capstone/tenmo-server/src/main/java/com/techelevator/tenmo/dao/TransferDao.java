@@ -15,9 +15,6 @@ public interface TransferDao {
 
    void  subtractFromSenderBalance(int userId, BigDecimal amount);
 
-
-
-   //Transfer createTransfer(int senderId, int receiverId, BigDecimal amount ) throws Exception;
    boolean createTransfer(Transfer transfer ) throws Exception;
 
    boolean checkBalanceBeforeTransfer(BigDecimal balance, BigDecimal amount);

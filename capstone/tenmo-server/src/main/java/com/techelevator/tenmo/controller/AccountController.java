@@ -27,7 +27,7 @@ public class AccountController {  //gets the request from client on port 8080
     }
 
     @RequestMapping(path = "/accounts", method = RequestMethod.GET)
-//someone is requesting information, and i'm goign to run method
+    //someone is requesting information, and I'm going to run method
     public BigDecimal getAccountBalance(Principal principal) {
 
         String username = principal.getName(); //if logged in, we can get their name
@@ -36,10 +36,6 @@ public class AccountController {  //gets the request from client on port 8080
         Account account = accountDao.getAccount(userId);
         return account.getBalance();
 
-        //now go and find the balance for the userId
-        //create an accountsDao
-        //create an accounts jdbc class
-        //use dependency injection to inject accountsDao
     }
 
     @RequestMapping(path = "/users", method = RequestMethod.GET)
@@ -47,12 +43,6 @@ public class AccountController {  //gets the request from client on port 8080
         int id = userDao.findIdByUsername(principal.getName());
         return userDao.findAllForSendingMoney(id);
     }
-//
-//    @RequestMapping(path = "/users", method = RequestMethod.GET)
-//    public List<User> getAll() {
-//        return userDao.findAll();
-//    }
-
 }
 
 

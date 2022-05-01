@@ -7,8 +7,6 @@ import com.techelevator.tenmo.services.TenmoService;
 import com.techelevator.tenmo.services.TransferService;
 
 import java.math.BigDecimal;
-import java.security.Principal;
-import java.util.Arrays;
 
 public class App {
 
@@ -95,87 +93,78 @@ public class App {
             consoleService.pause();
         }
     }
-
     private void viewCurrentBalance() {
         // TODO Auto-generated method stub
         System.out.println(tenmoService.getBalance()); //using the principal
     }
-
     private void viewTransferHistory() {
-       Transfer[] transferList = transferService.getTransferList();
-       for(Transfer eachTransfer : transferList){
-           System.out.println(eachTransfer.toString());
-       }
-        int transferId = consoleService.promptForInt("Enter transfer id to view transaction: ");
-        System.out.println("Your transfer details are: " + transferService.getTransferById(transferId));
-        Transfer transfer = new Transfer();
-        transfer = transferService.getTransferById(transferId);
-        System.out.println(transfer.toStringForTransferDetails());
-
+        Transfer[] transferList = transferService.getTransferList();
+        consoleService.printTransactionHeader();
+        for (Transfer eachTransfer : transferList) {
+            System.out.println(eachTransfer.toString());
+        }
+        consoleService.printTransactionHeaderBottom();
+        int transferId = consoleService.promptForInt("Enter transfer id to view transaction (0 to cancel): ");
+        if (transferId == 0) {
+            consoleService.printMainMenu();
+        } else {
+            consoleService.printTransactionDetailsHeader();
+            Transfer transfer = new Transfer();
+            transfer = transferService.getTransferById(transferId);
+            System.out.println(transfer.toStringForTransferDetails());
+            consoleService.printTransactionHeaderBottom();
+        }
     }
-
-//    private void viewTransferById() {
-//        // TODO Auto-generated method stub
-//        int transferId = consoleService.promptForInt("Enter transfer id to view transaction: ");
-//        System.out.println("Your transfer details are: " + transferService.getTransferById(transferId)); //using the principal
-//
-
-//    }
-
     private void viewPendingRequests() {
         // TODO Auto-generated method stub
-
     }
 
     private void sendBucks() {
         User[] userList = tenmoService.getAllUsersForSendingMoney();
+        consoleService.printSendTEBucksHeader();
         for (User eachUser : userList) {
             System.out.println(eachUser.toString()); //will print out each user down on the list
+
             /**
              * match id boolean
              * while true
              * prmpty enter id the send money to
              *
-             */}
+             */
+        }
         boolean matchId = false;
+        consoleService.printTransactionHeaderBottom();
         while (!matchId) {
-            int userToId = consoleService.promptForInt("Enter user id to send money to: ");
+            int userToId = consoleService.promptForInt("\nEnter user id to send money to (0 to cancel): ");
 
-            for (User user : userList) {
-                if (user.getId() == userToId) {
-                    if (!user.getUsername().equals(currentUser)) {
-                        matchId = true;
+                for (User user : userList) {
+                    if (user.getId() == userToId && userToId != 0) {
 
-                    }
+                        if (!user.getUsername().equals(currentUser)) {
+                            matchId = true;
+                        }
+
+                    } else if (userToId == 0){  consoleService.printMainMenu(); return; } // break breaks out of loop
+                }                                                                         // return breaks out of the method
+
+                if (matchId) {
+                    double inputAmount = consoleService.promptForDouble("\nEnter Dollar amount including decimal: $");
+                    BigDecimal transferAmount = BigDecimal.valueOf(inputAmount);
+                    Transfer transfer = new Transfer();
+                    transfer.setAmount(transferAmount);
+                    transfer.setReceiverId(userToId);
+                    transferService.sendMoney(transfer);
+
+                } else {
+                    System.out.println("User ID is not found");
+                    break;
                 }
-            }
-            if (matchId) {
-                double inputAmount = consoleService.promptForDouble("Enter Dollar amount including decimal: ");
-                BigDecimal transferAmount = BigDecimal.valueOf(inputAmount);
-//                if ();
-                Transfer transfer = new Transfer();
-                transfer.setAmount(transferAmount);
-                transfer.setReceiverId(userToId);
-                transferService.sendMoney(transfer);
-
-            }else {
-                System.out.println("User ID is not found");
-                break;
             }
         }
 
-    }
-
-//        private void testing( int userId) {
-//            consoleService.promptForInt("whatever: ");
-//            userId = consoleService.promptForInt("whatever");
-//            if ()
-//        }
 
         private void requestBucks() {
             // TODO Auto-generated method stub
-
         }
-
     }
 

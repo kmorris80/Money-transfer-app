@@ -100,30 +100,14 @@ public class Transfer {
         this.transferType = transferType;
     }
 
-//    @Override
-//    public String toString() {
-//        return
-//
-//                "Transfer{" +
-//                "transferId=" + transferId +
-//                ", amount=" + amount +
-//                ", senderId=" + senderId +
-//                ", receiverId=" + receiverId +
-//                ", transferType='" + transferType + '\'' +
-//                ", transferTypeDesc='" + transferTypeDesc + '\'' +
-//                ", transferStatusDesc='" + transferStatusDesc + '\'' +
-//                ", usernameFrom='" + usernameFrom + '\'' +
-//                ", usernameTo='" + usernameTo + '\'' +
-//                '}';
-//    }
-    // correct format
+
     @Override
-    public String toString(){
-        return "Transfer ID: " + getTransferId()  + "\nSent to: " + getUsernameTo()+ " | Amount: $" + getAmount();
+    public String toString(){ // to string for the transfer list
+        return getTransferId()  + "                 To: " + getUsernameTo()+ "                 $" + getAmount();
     }
 
-    public String toStringForTransferDetails(){
-        return "ID: " + getTransferId() + "\nFrom: " + getUsernameFrom() + "\nTo:  " + getUsernameTo() + "\nType:  " + getTransferTypeDesc() + "\nStatus:  " + getTransferStatusDesc()
+    public String toStringForTransferDetails(){ // to string for view transfer details
+        return "ID:      " + getTransferId() + "\nFrom:    " + getUsernameFrom() + "\nTo:      " + getUsernameTo() + "\nType:    " + getTransferTypeDesc() + "\nStatus:  " + getTransferStatusDesc()
                 + "\nAmount:  " + getAmount();
     }
 }

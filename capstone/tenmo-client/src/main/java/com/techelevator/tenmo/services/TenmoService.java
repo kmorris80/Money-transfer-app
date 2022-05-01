@@ -11,8 +11,7 @@ import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class TenmoService {
 
@@ -35,12 +34,10 @@ public class TenmoService {
         }
         return balance;
     }
-//    public User[] getAll(){
-//        User[] users = null;
+
     public User[] getAllUsersForSendingMoney(){
             User[] users = null;
         try {
-         //   return restTemplate.exchange(API_BASE_URL + "users", HttpMethod.GET, makeAuthEntity(), List<User>.class);
             ResponseEntity<User[]> response = restTemplate.exchange(API_BASE_URL + "users", HttpMethod.GET, makeAuthEntity(), User[].class);
             users = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
@@ -48,8 +45,6 @@ public class TenmoService {
         }
         return users;
     }
-
-
 
     private HttpEntity<Void> makeAuthEntity() {
         HttpHeaders headers = new HttpHeaders();

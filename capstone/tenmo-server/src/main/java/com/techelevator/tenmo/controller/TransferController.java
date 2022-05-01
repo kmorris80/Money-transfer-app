@@ -43,14 +43,11 @@ public void withdrawFromSender(@RequestBody Transfer transfer, Principal princip
         transferDao.subtractFromSenderBalance(senderId, transfer.getAmount() );
         transferDao.addToReceiverBalance(transfer.getReceiverId(), transfer.getAmount());
         transferDao.createTransfer(transfer);
-        //transfer dao to write to transfer table
 }
  @RequestMapping(path="/{transferId}", method = RequestMethod.GET)
     public Transfer getTransferByTransferId(@PathVariable int transferId) throws Exception {
-        Transfer transfer = new Transfer();                         // method was returning void needed it to return transfer
+        Transfer transfer = new Transfer();
         transfer = transferDao.getTransferById(transferId);
         return transfer;
  }
-// transfer.getTransferId(), transfer.getaccountFromId(), transfer.getAccountToId(), transfer.getAmount()
-
 }

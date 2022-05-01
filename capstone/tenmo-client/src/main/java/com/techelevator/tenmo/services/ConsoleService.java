@@ -42,7 +42,6 @@ public class ConsoleService {
         System.out.println("3: View your pending requests");
         System.out.println("4: Send TE bucks");
         System.out.println("5: Request TE bucks");
-//        System.out.println("6: View a past transfer by ID");
         System.out.println("0: Exit");
         System.out.println();
     }
@@ -100,15 +99,29 @@ public class ConsoleService {
         System.out.println("An error occurred. Check the log for details.");
     }
 
-    public void printTransactionHeader(){
+    public void printSendTEBucksHeader(){
         System.out.println("_____________________________________________________");
         System.out.println("User                                                 ");
-        System.out.println("ID                         Name                      ");
+        System.out.println("ID      Name                                         ");
         System.out.println("_____________________________________________________");
-
     }
+
     public void printTransactionHeaderBottom(){
         System.out.println("_____________");
+    }
+
+    public void printTransactionDetailsHeader(){
+        System.out.println("_____________________________________________________");
+        System.out.println("                Transfer Details                     ");
+        System.out.println("_____________________________________________________");
+    }
+
+    public void printTransactionHeader(){
+        System.out.println("_____________________________________________________");
+        System.out.println("Transfers                                            ");
+        System.out.println("ID                   From/To                 Amount  ");
+        System.out.println("_____________________________________________________");
+
     }
 
 

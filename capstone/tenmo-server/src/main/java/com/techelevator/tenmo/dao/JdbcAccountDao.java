@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 public class JdbcAccountDao implements AccountDao {//all database to server
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public JdbcAccountDao(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
@@ -53,19 +53,7 @@ public class JdbcAccountDao implements AccountDao {//all database to server
         return account.getBalance();
     }
     @Override
-    public int findAccountIdByUserId(int userId) {
-        Account account = new Account();
-        String sql = "SELECT account_id FROM account WHERE user_id = ?;";
-        SqlRowSet accountId = jdbcTemplate.queryForRowSet(sql, userId);
-        if (accountId.next()) {
-            account = mapRowToAccount(accountId);
-        }
-        return account.getAccountId();
-    }
-    @Override
-    public void addMoneyToAccount(BigDecimal amount, int userId) {
-
-    }
+    public void addMoneyToAccount(BigDecimal amount, int userId) {}
 
     @Override
     public List<Account> list() {
@@ -73,22 +61,5 @@ public class JdbcAccountDao implements AccountDao {//all database to server
     }
 
     @Override
-    public void create(Account account) {
-
-    }
-
-
-
-
-//    @Override
-
-//    public void addMoneyToAccount(BigDecimal amount, int userId){
-//        String sql= "UPDATE account SET balance = balance + ? WHERE user_id = ?";
-//        BigDecimal newBalance = getBalance(userId).add(amount);
-//        jdbcTemplate.update(sql, newBalance, userId);
-//
-//    }
-
-
-
+    public void create(Account account) {}
 }
